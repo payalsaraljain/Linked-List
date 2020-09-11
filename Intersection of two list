@@ -1,0 +1,71 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* t=headA;
+        ListNode* t5=headA;
+        ListNode* t6=headB;
+        ListNode* r=NULL;
+        int c,d=0,c1=0,c2=0;
+        ListNode* t2=NULL;
+        while(t!=NULL){
+            c1=c1+1;
+            t=t->next;
+        }
+       // cout<<"c1="<<c1<<"\n";
+        ListNode* t1=headB;
+        while(t1!=NULL){
+            c2=c2+1;
+            t1=t1->next;
+        }
+        //cout<<"c2="<<c2<<"\n";
+        if(c1>c2){
+            c=c1-c2;
+            t2=headA;
+             while(d!=c){
+              t2=t2->next;
+               d=d+1;
+             }
+            while((t6!=NULL)&&(t2!=NULL)){
+                if(t6==t2){
+                    int x=t6->val;
+                    ListNode* p=new ListNode(x);
+                    r=p;
+                    break;
+                }
+                t6=t6->next;
+                t2=t2->next;
+            }
+            return r;
+        }
+        else{
+            c=c2-c1;
+            t2=headB;
+            while(d!=c){
+              t2=t2->next;
+               d=d+1;
+             }
+            //cout<<"T2="<<t2->val<<"\n";
+            while((t5!=NULL)&&(t2!=NULL)){
+                if(t5==t2){
+                    int x=t5->val;
+                    ListNode* p=new ListNode(x);
+                    r=p;
+                    break;
+                }
+                //cout<<"A="<<t->val<<" ";
+                //cout<<"B="<<t2->val<<" ";
+                t5=t5->next;
+                t2=t2->next;
+            }
+            return r;
+        }
+    }
+};
