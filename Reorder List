@@ -1,0 +1,122 @@
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        int c=0,e=2;
+        ListNode* t=head;
+        head=t;
+        if(head!=NULL){
+        ListNode* current=head->next;
+        while(current!=NULL){
+            c=c+1;
+            current=current->next;
+        }
+        ListNode* h1=NULL;
+        ListNode* h2=NULL;
+        if(c%2==0){
+            h1=head->next;
+            ListNode* tem=head->next;
+            ListNode* y=NULL;
+            int d=0;
+            c=c/2;
+            while(d!=c){
+                d=d+1;
+                y=tem;
+                tem=tem->next;
+            }
+            if(y!=NULL){
+                y->next=NULL;
+            }
+            ListNode* prev=NULL;
+            ListNode* front=NULL;
+            ListNode* current1=tem;
+            while(current1!=NULL){
+                front=current1->next;
+                current1->next=prev;
+                prev=current1;
+                current1=front;
+            }
+            h2=prev;
+        }
+        else{
+           h1=head->next;
+            ListNode* tem=head->next;
+            ListNode* y=NULL;
+            int d=0;
+            c=(c/2)+1;
+            while(d!=c){
+                d=d+1;
+                y=tem;
+                tem=tem->next;
+            }
+            if(y!=NULL){
+            y->next=NULL;
+            }
+            ListNode* prev=NULL;
+            ListNode* front=NULL;
+            ListNode* current1=tem;
+            while(current1!=NULL){
+                front=current1->next;
+                current1->next=prev;
+                prev=current1;
+                current1=front;
+            }
+            h2=prev; 
+        }
+        ListNode* r=t;
+        ListNode* t5=h1;
+        ListNode* t6=h2;
+        while((t5!=NULL)&&(t6!=NULL)){
+            if((e%2==0)){
+                int x=t6->val;
+                ListNode *p=new ListNode(x);
+                r->next=p;
+                r=r->next;
+                t6=t6->next;
+            }
+            else{
+                int x=t5->val;
+                ListNode *p=new ListNode(x);
+                r->next=p;
+                r=r->next;
+                t5=t5->next;
+            }
+            e=e+1;
+           // cout<<"e="<<e<<" ";
+            //t5=t5->next;
+            //t6=t6->next;
+           // cout<<"r="<<r->val<<" ";
+        }
+        if(t5==NULL){
+            while(t6!=NULL){
+                int x=t6->val;
+                ListNode *p=new ListNode(x);
+                r->next=p;
+                r=r->next;
+                t6=t6->next;
+            }
+        }
+        else{
+            while(t5!=NULL){
+                int x=t5->val;
+                ListNode *p=new ListNode(x);
+                r->next=p;
+                r=r->next;
+                t5=t5->next; 
+            }
+        }
+        }
+    }
+};
