@@ -1,0 +1,150 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int d=0;
+        ListNode* l3=NULL;
+        ListNode* l4=NULL;
+        while((l1!=NULL)&&(l2!=NULL)){
+            if(l3==NULL){
+                if((l1->val+l2->val)>9){
+                    d=1;
+                    int x=(l1->val+l2->val)%10;
+                    ListNode* t=new ListNode(x);
+                    l3=t;
+                    l4=l3;
+                }
+                else{
+                    d=0;
+                    int x=(l1->val+l2->val);
+                    ListNode* t=new ListNode(x);
+                    l3=t;
+                    l4=l3;
+                }
+                l1=l1->next;
+                l2=l2->next;
+            }
+            else{
+                if(d==1){
+                    int y=l1->val+l2->val+1;
+                    if(y>9){
+                        d=1;
+                        y=y%10;
+                        ListNode* t1=new ListNode(y);
+                        l3->next=t1;
+                        l3=l3->next;
+                    }
+                    else{
+                        d=0;
+                        ListNode* t1=new ListNode(y);
+                        l3->next=t1;
+                        l3=l3->next;
+                    }
+                }
+                else{
+                    int y=l1->val+l2->val;
+                    if(y>9){
+                        d=1;
+                        y=y%10;
+                        ListNode* t1=new ListNode(y);
+                        l3->next=t1;
+                        l3=l3->next;
+                    }
+                    else{
+                        d=0;
+                        ListNode* t1=new ListNode(y);
+                        l3->next=t1;
+                        l3=l3->next; 
+                    }
+                }
+                l1=l1->next;
+                l2=l2->next;
+            }
+        }
+        
+        if((l1==NULL)&&(l2!=NULL)){
+            while(l2!=NULL){
+               if(d==1){
+                   int x=l2->val+1;
+                   if(x>9){
+                       d=1;
+                       x=x%10;
+                       ListNode* t2=new ListNode(x);
+                       l3->next=t2;
+                       l3=l3->next;
+                   }
+                   else{
+                       d=0;
+                       ListNode* t2=new ListNode(x);
+                       l3->next=t2;
+                       l3=l3->next;
+                   }
+               }
+               else{
+                  int x=l2->val;
+                  ListNode *t2=new ListNode(x);
+                   l3->next=t2;
+                   l3=l3->next;
+                }
+                l2=l2->next;
+            }
+            if(d==1){
+                int x=1;
+                ListNode *t2=new ListNode(x);
+                l3->next=t2;
+                l3=l3->next;
+            }
+        }
+        else if((l2==NULL)&&(l1!=NULL)){
+            while(l1!=NULL){
+               if(d==1){
+                 int x=l1->val+1;
+                 if(x>9){
+                       d=1;
+                       x=x%10;
+                       ListNode* t2=new ListNode(x);
+                       l3->next=t2;
+                       l3=l3->next;
+                   }
+                   else{
+                       d=0;
+                       ListNode* t2=new ListNode(x);
+                       l3->next=t2;
+                       l3=l3->next;
+                   }
+               }
+                else{
+                    int x=l1->val;
+                     ListNode *t2=new ListNode(x);
+                     l3->next=t2;
+                     l3=l3->next;
+                }
+                l1=l1->next;
+            }
+            if(d==1){
+                int x=1;
+                ListNode* t2=new ListNode(x);
+                l3->next=t2;
+                l3=l3->next;
+            }
+        }
+        else{
+            if(d==1){
+                int x=1;
+                ListNode *t2=new ListNode(x);
+                l3->next=t2;
+                l3=l3->next;
+            }
+        }
+        return l4;
+    }
+};
